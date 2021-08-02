@@ -33,6 +33,7 @@ namespace MarchingCube
        public void ResetData()
        {
            data = new MarchingCubeData(width, depth, height,scale);
+           Debug.Log(width+ " " + depth + " " + height);
            ComputeData();
            RenderSurface();
        }
@@ -43,16 +44,19 @@ namespace MarchingCube
            {
                for (int x = 0; x < width; ++x)
                {
-                   Vector2 pos = new Vector2(x / (float)width * scale,  z / (float)height * scale);
+                   Vector2 pos = new Vector2(x / (float)width * scale,  z / (float)depth * scale);
                    float perlin = Mathf.PerlinNoise(pos.x, pos.y) * perlinHeight;
                    for (int y = 0; y < height; ++y)
                    {
                        if (y < perlin)
                        {
+                          
+                           //Debug.Log("Point " + x+ " " + y + " " + z);
                            data.setPointValue(x, y, z,1);
                        }
                        else
                        {
+                           //Debug.Log("Point " + x+ " " + y + " " + z);
                            data.setPointValue(x, y, z,0);
                        }
                    }
@@ -79,7 +83,7 @@ namespace MarchingCube
                            Gizmos.color = new Color(1, 1-dataAtPoint, 1-dataAtPoint, 1f);
                        }
                        float size = dataAtPoint >= floor ? 0.1f : 0f;
-                       Gizmos.DrawCube(new Vector3(x, y, z)- offset, Vector3.one*size);
+                       Gizmos.DrawCube(new Vector3(x, y, z), Vector3.one*size);
                    }
                }
            }

@@ -14,6 +14,8 @@ namespace MarchingCube
 
         public MarchingCubeData(int width, int depth, int height, float scale)
         {
+            points = new List<float>();
+            
             dataWidth = width;
             dataDepth = depth;
             dataHeight = height;
@@ -31,19 +33,19 @@ namespace MarchingCube
                             z / (float) height * scale);
                         float perlin = Mathf.PerlinNoise(pos.x, pos.y);
                         points.Add(perlin);
-                        ///setPointValue(x,y,z,val);
                     }
                 }
             }
+            Debug.Log(dataWidth+ " " + dataDepth + " " + dataHeight);
         }
 
         public void setPointValue(int x, int y, int z, float value)
         {
-            points[z * dataDepth * dataWidth + y * dataWidth + x] = value;
+            points[z * dataHeight * dataWidth + y * dataWidth + x] = value;
         }
         public float getPointValue(int x, int y, int z)
         {
-            return points[z * dataDepth * dataWidth + y * dataWidth + x];
+            return points[z * dataHeight * dataWidth + y * dataWidth + x];
         }
     }
 }
