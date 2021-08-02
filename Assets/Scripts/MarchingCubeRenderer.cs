@@ -8,6 +8,7 @@ namespace MarchingCube
    [RequireComponent(typeof(MeshRenderer))]
    public class MarchingCubeRenderer : MonoBehaviour
    {
+      public bool drawGizmosPoints;
        public int width;
        public int depth;
        public int height;
@@ -67,25 +68,40 @@ namespace MarchingCube
        {
           Gizmos.color = new Color(1, 1, 1, 1f);
            Vector3 offset = new Vector3(width / 2f, depth / 2f, height / 2f);
-           for (int y = 0; y < height; ++y)
+           Gizmos.color = new Color(0,0,0,0.5f);
+           Vector3 A = new Vector3(0, 0, 0);
+           Vector3 B = new Vector3(width-1, 0, 0);
+           Vector3 C = new Vector3(width-1, 0, depth-1);
+           Vector3 D = new Vector3(0, 0, depth-1);
+           Vector3 E = new Vector3(0, height-1, 0);
+           Vector3 F = new Vector3(width-1, height-1, 0);
+           Vector3 G = new Vector3(width-1, height-1, depth-1);
+           Vector3 H = new Vector3(0, height-1, depth-1);
+           Gizmos.DrawLine(A,B);
+           Gizmos.DrawLine(B,C);
+           Gizmos.DrawLine(C,D);
+           Gizmos.DrawLine(D,A);
+           Gizmos.DrawLine(A,E);
+           Gizmos.DrawLine(B,F);
+           Gizmos.DrawLine(C,G);
+           Gizmos.DrawLine(D,H);
+           Gizmos.DrawLine(E,F);
+           Gizmos.DrawLine(F,G);
+           Gizmos.DrawLine(G,H);
+           Gizmos.DrawLine(H,E);
+           if (drawGizmosPoints)
            {
-               for (int z = 0; z < depth; ++z)
-               {
-                   for (int x = 0; x < width; ++x)
-                   {
-                       float dataAtPoint = data.getPointValue(x,y,z);
-                       if (x == 1 && y == 2 && z == 5)
-                       {
-                           Gizmos.color = new Color(0, 1, 0, 1f);
-                       }
-                       else
-                       {
-                           Gizmos.color = new Color(1, 1-dataAtPoint, 1-dataAtPoint, 1f);
-                       }
-                       float size = dataAtPoint >= floor ? 0.1f : 0f;
-                       Gizmos.DrawCube(new Vector3(x, y, z), Vector3.one*size);
-                   }
-               }
+              Gizmos.color = new Color(1, 1, 1, 1f);
+              for (int y = 0; y < height; ++y)
+              {
+                 for (int z = 0; z < depth; ++z)
+                 {
+                    for (int x = 0; x < width; ++x)
+                    {
+                       Gizmos.DrawSphere(new Vector3(x, y, z), 0.02f);
+                    }
+                 }
+              } 
            }
        }
 
