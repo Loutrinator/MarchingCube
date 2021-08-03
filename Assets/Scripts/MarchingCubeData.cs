@@ -12,7 +12,7 @@ namespace MarchingCube
         private int dataHeight = 0;
         private int nbPoints = 0;
 
-        public MarchingCubeData(int width, int depth, int height, float scale)
+        public MarchingCubeData(int width, int height, int depth)
         {
             points = new List<float>();
             
@@ -29,14 +29,9 @@ namespace MarchingCube
                     for (int x = 0; x < dataWidth; ++x)
                     {
                         points.Add(0);
-                        Vector3 pos = new Vector3(x / (float) width * scale, y / (float) depth * scale,
-                            z / (float) height * scale);
-                        float perlin = Mathf.PerlinNoise(pos.x, pos.y);
-                        points.Add(perlin);
                     }
                 }
             }
-            Debug.Log(dataWidth+ " " + dataDepth + " " + dataHeight);
         }
 
         public void setPointValue(int x, int y, int z, float value)

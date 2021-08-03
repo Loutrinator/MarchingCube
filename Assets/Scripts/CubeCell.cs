@@ -4,13 +4,13 @@ namespace MarchingCube
 {
     public class CubeCell
     {
-        public Vector3[] position;
-        public float[] values;
+        public Vector3[] p;
+        public float[] v;
 
         public CubeCell()
         {
-            position = new Vector3[8];
-            values = new float[8];
+            p = new Vector3[8];
+            v = new float[8];
         }
     }
 }
